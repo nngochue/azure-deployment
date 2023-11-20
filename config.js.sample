@@ -1,0 +1,59 @@
+﻿'use strict';
+'use strict';
+var $ = jQuery;
+if (typeof (cadena) === "undefined") { var cadena = {}; }
+
+(function (define, $, angular) {
+    $.extend(true, cadena, {
+        app: {
+            hostProductionUrl: '',
+            hostDevUrl: '',
+            hostQAUrl: '',
+
+            hostPayTimeUrl: ''
+            baseServiceUrl: "",
+            baseLeaveSvUrl: "",
+            baseStaffingSvUrl: "",
+            basePayrollSvUrl: "",
+            baseOauthCallbackUrl: '',
+            stripeKey_Singapore: "",
+            stripeKey_Malaysia: "",
+
+            g_recaptchaLive: "",
+
+            g_recaptcha: "",
+            useSubDomain: false,
+            Init: function (environment) {
+                var hostUrl = "";
+                if (environment === 1) // Value = 1, Production environment
+                {
+                    hostUrl = this.hostProductionUrl;
+                }
+                else if (environment === 2) // Value = 2, Development environment
+                {
+                    hostUrl = this.hostDevUrl;
+                }
+                else if (environment === 3) // Value = 3, QA environment
+                {
+                    hostUrl = this.hostQAUrl;
+                }
+
+                if (this.useSubDomain) {
+                    this.baseServiceUrl = hostUrl + '/infrastructure/';
+                    this.baseLeaveSvUrl = hostUrl + '/leave/';
+                    this.baseStaffingSvUrl = hostUrl + '/staffing/';
+                    this.basePayrollSvUrl = hostUrl + '/payroll/';
+                }
+                this.baseOauthCallbackUrl = hostUrl + this.baseOauthCallbackUrl;
+            },
+            config: {
+                /*
+                    1: Production Environment
+                    2: Development Environment
+                    3: QA Environment
+                */
+                ChooseEvironment: 2
+            }
+        }
+    });
+})(window.define, jQuery, window.angular);
